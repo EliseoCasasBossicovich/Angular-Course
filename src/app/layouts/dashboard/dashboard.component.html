@@ -1,9 +1,9 @@
-<mat-drawer-container class="dashboard-container" autosize>
+<mat-drawer-container class="dashboard" autosize>
   <mat-drawer #drawer class="dashboard-sidenav" mode="side">
-    <p class="dashboard-sidenav__text">Auto-resizing sidenav</p>
+    <p class="dashboard-sidenav__text">Acceso</p>
     @if (showFiller) {
     <p class="dashboard-sidenav__extra-text">
-      Lorem, ipsum dolor sit amet consectetur.
+      Proxiammente...
     </p>
     }
     <button
@@ -11,7 +11,7 @@
       class="dashboard-sidenav__toggle-button"
       mat-raised-button
     >
-      Toggle extra text
+      Más
     </button>
   </mat-drawer>
 
@@ -28,7 +28,9 @@
       <span class="dashboard-toolbar__app-name">Gestión</span>
       <span class="dashboard-toolbar__spacer"></span>
     </mat-toolbar>
-
-    <app-users></app-users>
+    <div class="students-section">
+      <app-students></app-students>
+    </div>
+    
   </div>
 </mat-drawer-container>

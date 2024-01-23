@@ -1,0 +1,121 @@
+<app-student-form
+  (studentSubmitted)="onStudentSubmitted($event)"
+></app-student-form>
+
+<section class="students-admin">
+  <h1 titleStyle>
+    Administración de Estudiantes
+  </h1>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="uuid">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let student">{{ student.uuid }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="fullName">
+      <th mat-header-cell *matHeaderCellDef>Nombre</th>
+      <td mat-cell *matCellDef="let student">{{ student | fullName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="age">
+      <th mat-header-cell *matHeaderCellDef>Edad</th>
+      <td mat-cell *matCellDef="let student">{{ student | calculateAge }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let student">{{ student.email }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="course">
+      <th mat-header-cell *matHeaderCellDef>Curso</th>
+      <td mat-cell *matCellDef="let student">{{ student.course }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="country">
+      <th mat-header-cell *matHeaderCellDef>País</th>
+      <td mat-cell *matCellDef="let student">{{ student.country }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let student">
+        <button mat-icon-button (click)="onStudentModify(student)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="onStudentDelete(student)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</section>
+
+<section *ngIf="editingStudent" class="student-edit">
+  <form
+    [formGroup]="studentForm"
+    (ngSubmit)="onSaveEdit()"
+    class="student-edit__form"
+  >
+    <mat-form-field>
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="firstName" type="text" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Apellido</mat-label>
+      <input matInput formControlName="lastName" type="text" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Fecha de Nacimiento</mat-label>
+      <input matInput formControlName="birthDate" type="date" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Curso</mat-label>
+      <mat-select formControlName="course">
+        <mat-option value="Angular">Angular</mat-option>
+        <mat-option value="React">React</mat-option>
+        <mat-option value="Vue">Vue</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Pais</mat-label>
+      <mat-select formControlName="country">
+        <mat-option value="Uruguay">Uruguay</mat-option>
+        <mat-option value="Argentina">Argentina</mat-option>
+        <mat-option value="Chile">Chile</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+  <div class="student-edit__buttons">
+    <button
+      class="student-edit__buttons--save"
+      mat-flat-button
+      color="primary"
+      type="submit"
+    >
+      Save
+    </button>
+
+    <button
+      class="student-edit__buttons--delete"
+      mat-flat-button
+      color="primary"
+      type="button"
+      (click)="onCancelEdit()"
+    >
+      Cancelar
+    </button>
+  </div>
+</section>

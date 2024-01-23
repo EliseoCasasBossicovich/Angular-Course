@@ -1,3 +1,16 @@
-.dashboard-container {
-    height: 100vh;
+.dashboard {
+  height: 100vh;
+
+  &-sidenav {
+    padding: 2rem;
+    width: 15rem;
+  }
+}
+
+.students-section {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
 }

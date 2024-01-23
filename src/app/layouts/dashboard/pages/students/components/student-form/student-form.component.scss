@@ -1,0 +1,17 @@
+.main-form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 4rem;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 60rem;
+
+  &__button {
+    border-radius: 25px;
+    width: 30rem;
+  }
+}
