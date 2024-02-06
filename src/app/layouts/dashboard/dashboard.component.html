@@ -1,18 +1,32 @@
 <mat-drawer-container class="dashboard" autosize>
   <mat-drawer #drawer class="dashboard-sidenav" mode="side">
-    <p class="dashboard-sidenav__text">Acceso</p>
-    @if (showFiller) {
-    <p class="dashboard-sidenav__extra-text">
-      Proxiammente...
-    </p>
-    }
-    <button
-      (click)="showFiller = !showFiller"
-      class="dashboard-sidenav__toggle-button"
-      mat-raised-button
-    >
-      Más
-    </button>
+    <mat-nav-list>
+      <a
+        #homeLink="routerLinkActive"
+        routerLinkActive
+        [activated]="homeLink.isActive"
+        routerLink="home"
+        mat-list-item
+        >Inicio</a
+      >
+      <a
+        #studentsLink="routerLinkActive"
+        routerLinkActive
+        [activated]="studentsLink.isActive"
+        routerLink="students"
+        mat-list-item
+        >Estudiantes</a
+      >
+      <a
+        #coursesLink="routerLinkActive"
+        routerLinkActive
+        [activated]="coursesLink.isActive"
+        routerLink="courses"
+        mat-list-item
+        >Cursos</a
+      >
+      <a (click)="logout()" mat-list-item>Cerrar sesion</a>
+    </mat-nav-list>
   </mat-drawer>
 
   <div class="dashboard-content">
@@ -25,12 +39,13 @@
       >
         <mat-icon>menu</mat-icon>
       </button>
-      <span class="dashboard-toolbar__app-name">Gestión</span>
+      <span class="dashboard-toolbar__app-name"
+        >Institucional - Gestión de Alumnos</span
+      >
       <span class="dashboard-toolbar__spacer"></span>
     </mat-toolbar>
-    <div class="students-section">
-      <app-students></app-students>
+    <div class="section">
+      <router-outlet></router-outlet>
     </div>
-    
   </div>
 </mat-drawer-container>

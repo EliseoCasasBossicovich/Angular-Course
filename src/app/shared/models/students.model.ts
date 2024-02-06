@@ -1,9 +1,9 @@
 export interface studentModel{
-    uuid: string;   
+    id: string;   
     firstName: string;
     lastName: string;
     birthDate: string;
     email: string;
-    course: string;
+    cellPhone: number;
     country: string;
 }

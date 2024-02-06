@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoadingService } from './core/services/loading.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,16 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'angular-course';
+  title = 'Web-Institucional';
+  isLoading = false;
+
+  constructor(private loadingService: LoadingService){
+    this.loadingService.isLoading$.subscribe({
+      next: (v)=> {
+        setTimeout(() => {
+          this.isLoading = v;
+        })
+      }
+    })
+  }
 }

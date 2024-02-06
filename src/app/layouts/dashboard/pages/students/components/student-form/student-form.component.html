@@ -1,6 +1,6 @@
 <section class="main-form">
-    <h1 titleStyle>Alta de Estudiantes</h1>
-    <form [formGroup]="StudentForm" (ngSubmit)="onSubmit()" class="form">
+    <h1 titleStyle> Ingrese los nuevos datos</h1>
+    <form [formGroup]="studentsForm" (ngSubmit)="onSubmit()" class="form">
       <mat-form-field>
         <mat-label>Nombre</mat-label>
         <input formControlName="firstName" matInput type="text" />
@@ -18,14 +18,12 @@
         <input formControlName="email" matInput type="email" />
       </mat-form-field>
     
-      <mat-form-field>
-        <mat-label>Curso</mat-label>
-        <mat-select formControlName="course">
-          <mat-option value="Angular">Angular</mat-option>
-          <mat-option value="React">React</mat-option>
-          <mat-option value="Vue">Vue</mat-option>
-        </mat-select>
-      </mat-form-field>
+      <div>
+        <mat-form-field>
+          <mat-label>Movil</mat-label>
+          <input formControlName="cellPhone" matInput type="tel" />
+        </mat-form-field>
+      </div>
     
       <mat-form-field>
         <mat-label>Pais</mat-label>
