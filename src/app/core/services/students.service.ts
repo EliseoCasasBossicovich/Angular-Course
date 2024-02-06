@@ -11,6 +11,8 @@ const STUDENTS_DB: studentModel[] = [
     email: 'jxg@gmail.com',
     cellPhone: 3343333234,
     country: 'Argentina',
+    role: 'ADMINISTRADOR',
+    password: '123233'
   },
   {
     id: '22229ab5-14b9-488e-9105-a0aca00dde3c',
@@ -20,6 +22,8 @@ const STUDENTS_DB: studentModel[] = [
     email: 'vt@gmail.com',
     cellPhone: 3343333234,
     country: 'Argentina',
+    role: 'ESTUDIANTE',
+    password: '123233'
   },
   {
     id: '95347731-7f94-1be3-af93-2acac36658e0',
@@ -29,6 +33,8 @@ const STUDENTS_DB: studentModel[] = [
     email: 'mp@gmail.com',
     cellPhone: 3343333234,
     country: 'Uruguay',
+    role: 'ESTUDIANTE',
+    password: '123233'
   },
 ];
 

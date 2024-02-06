@@ -23,6 +23,7 @@ export class StudentsComponent {
     'email',
     'cellPhone',
     'country',
+    'role',
     'action',
   ];
   dataSource: studentModel[] = [];

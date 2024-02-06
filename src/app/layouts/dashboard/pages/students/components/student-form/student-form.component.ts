@@ -30,6 +30,8 @@ export class StudentFormComponent implements OnChanges{
       cellPhone: this.fb.control('', Validators.required),
       email: this.fb.control('', Validators.required),
       country: this.fb.control('', Validators.required),
+      role: this.fb.control('', Validators.required),
+      password: this.fb.control('', Validators.required),
     })
   }
   
@@ -42,6 +44,8 @@ export class StudentFormComponent implements OnChanges{
         cellPhone: this.fb.control('', Validators.required),
         email: this.fb.control('', Validators.required),
         country: this.fb.control('', Validators.required),
+        role: this.fb.control('', Validators.required),
+        password: this.fb.control('', Validators.required),
       })
     }else{
       this.studentsForm = this.fb.group({
@@ -51,6 +55,8 @@ export class StudentFormComponent implements OnChanges{
         cellPhone: this.fb.control(this.passEdit.cellPhone, Validators.required),
         email: this.fb.control(this.passEdit.email, Validators.required),
         country: this.fb.control(this.passEdit.country, Validators.required),
+        role: this.fb.control(this.passEdit.role, Validators.required),
+        password: this.fb.control(this.passEdit.password, Validators.required),
       })
     } 
 
@@ -85,7 +91,7 @@ export class StudentFormComponent implements OnChanges{
     this._snackBar.open(msg, accion,{
       horizontalPosition:"center",
       verticalPosition:"top",
-      duration: 3000
+      duration: 2000
     });
   }
   
