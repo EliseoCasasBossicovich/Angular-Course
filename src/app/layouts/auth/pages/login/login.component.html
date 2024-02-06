@@ -1,8 +1,8 @@
-<div class="login-container">
-  <mat-card>
+<div class="login">
+  <mat-card class="login-card">
     <mat-card-header>
       <mat-card-title
-        ><h1>Iniciar sesion</h1></mat-card-title
+        ><h1 titleStyle >Iniciar sesion</h1></mat-card-title
       >
     </mat-card-header>
     <mat-card-content>
@@ -11,7 +11,7 @@
         [formGroup]="loginForm"
         class="grid formgrid"
       >
-        <div>
+        <div class="login-card__form">
           <mat-form-field>
             <mat-label>Email</mat-label>
             <input formControlName="email" matInput />
@@ -34,12 +34,13 @@
               (click)="revealPassword = !revealPassword"
               matSuffix
               mat-icon-button
+              class="login-card__button-show"
             >
               <mat-icon>visibility</mat-icon>
             </button>
           </mat-form-field>
         </div>
-          <button mat-flat-button color="primary">
+          <button mat-flat-button class="login-card__button">
             Ingresar
           </button>
 

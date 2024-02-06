@@ -9,7 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class StudentFormComponent implements OnChanges{
   studentsForm: FormGroup;
-  buttonAccion:string="Guardar";
+  buttonAction:string="Guardar";
   buttonPress: any;
 
   @Input()  passEdit: any;
@@ -83,7 +83,7 @@ export class StudentFormComponent implements OnChanges{
     }
   }
 
-  onPressCancel(cancel1:boolean){
+  onPressCancel(cancel:boolean){
     this.buttonPress=true;
   }
 
