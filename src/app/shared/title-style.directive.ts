@@ -1,13 +1,16 @@
 import { Directive, ElementRef, Renderer2 } from '@angular/core';
 
 @Directive({
-  selector: '[titleStyle]'
+  selector: '[titleStyle]',
 })
 export class titleStyleDirective {
-
-  constructor(
-    private elementRef: ElementRef, private renderer: Renderer2){
-    this.renderer.setStyle(this.elementRef.nativeElement, 'font-size', '32px')
-    this.renderer.setStyle(this.elementRef.nativeElement, 'font-family', 'Impact')
-   }
+  constructor(private elementRef: ElementRef, private renderer: Renderer2) {
+    this.renderer.setStyle(this.elementRef.nativeElement, 'font-size', '32px');
+    this.renderer.setStyle(this.elementRef.nativeElement, 'font-weight', '700');
+    this.renderer.setStyle(
+      this.elementRef.nativeElement,
+      'font-family',
+      'sans-serif'
+    );
+  }
 }

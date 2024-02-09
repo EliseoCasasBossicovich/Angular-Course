@@ -1,49 +1,40 @@
 <div class="login">
-  <mat-card class="login-card">
+  <mat-card class="login-card slideDown">
+
     <mat-card-header>
-      <mat-card-title
-        ><h1 titleStyle >Iniciar sesion</h1></mat-card-title
-      >
+      <mat-card-title><h1 titleStyle>Iniciar sesion</h1></mat-card-title>
     </mat-card-header>
+
     <mat-card-content>
-      <form
-        (ngSubmit)="onSubmit()"
-        [formGroup]="loginForm"
-        class="grid formgrid"
-      >
-        <div class="login-card__form">
-          <mat-form-field>
-            <mat-label>Email</mat-label>
-            <input formControlName="email" matInput />
-            <mat-error>{{
-              loginForm.get("email")?.errors | loadingValidationErrors
-            }}</mat-error>
-          </mat-form-field>
+      <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="login-card__form">
+        <mat-form-field class="mb-3">
+          <mat-label>Email</mat-label>
+          <input formControlName="email" matInput />
+          <mat-error>{{
+            loginForm.get("email")?.errors | loadingValidationErrors
+          }}</mat-error>
+        </mat-form-field>
 
-          <mat-form-field>
-            <mat-label>Password</mat-label>
-            <input
-              [type]="revealPassword ? 'text' : 'password'"
-              formControlName="password"
-              matInput
-            />
-            <mat-error>
-              {{ loginForm.get("password")?.errors | loadingValidationErrors }}
-            </mat-error>
-            <button
-              (click)="revealPassword = !revealPassword"
-              matSuffix
-              mat-icon-button
-              class="login-card__button-show"
-            >
-              <mat-icon>visibility</mat-icon>
-            </button>
-          </mat-form-field>
-        </div>
-          <button mat-flat-button class="login-card__button">
-            Ingresar
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input
+            [type]="revealPassword ? 'text' : 'password'"
+            formControlName="password"
+            matInput
+          />
+          <mat-error>
+            {{ loginForm.get("password")?.errors | loadingValidationErrors }}
+          </mat-error>
+          <button
+            (click)="revealPassword = !revealPassword"
+            matSuffix
+            mat-icon-button
+            class="login-card__button-show"
+          >
+            <mat-icon>visibility</mat-icon>
           </button>
-
+        </mat-form-field>
+        <button mat-flat-button class="login-card__button">Ingresar</button>
       </form>
     </mat-card-content>
   </mat-card>
