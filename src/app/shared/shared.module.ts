@@ -13,8 +13,23 @@ import { titleStyleDirective } from './title-style.directive';
 import { FullNamePipe } from './pipes/full-name.pipe';
 
 @NgModule({
-  declarations: [FullNamePipe, CalculateAgePipe, titleStyleDirective, LoginValidationErrorsPipe],
+  declarations: [
+    FullNamePipe,
+    CalculateAgePipe,
+    titleStyleDirective,
+    LoginValidationErrorsPipe,
+  ],
   imports: [CommonModule],
-  exports: [FullNamePipe, CalculateAgePipe, titleStyleDirective, MatCardModule, MatFormFieldModule, ReactiveFormsModule, LoginValidationErrorsPipe, MatIconModule, MatInputModule],
+  exports: [
+    FullNamePipe,
+    CalculateAgePipe,
+    titleStyleDirective,
+    MatCardModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    LoginValidationErrorsPipe,
+    MatIconModule,
+    MatInputModule,
+  ],
 })
 export class SharedModule {}

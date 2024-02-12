@@ -1,0 +1,15 @@
+:host(.title-s) {
+  .title {
+    font-size: 18px;
+  }
+}
+:host(.title-m) {
+  .title {
+    font-size: 24px;
+  }
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+}
