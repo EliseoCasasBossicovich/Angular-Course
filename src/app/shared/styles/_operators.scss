@@ -5,6 +5,8 @@
   color: $color;
   border: none;
   border-radius: 15px;
+  width: 10rem;
+  height: 2rem;
 
   &:hover {
     background-color: lighten($background, 10%);
