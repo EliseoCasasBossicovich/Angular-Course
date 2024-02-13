@@ -2,7 +2,5 @@
 @import "../../styles/variables";
 
 .button-link {
-    width: 10rem;
-    height: 2rem;
-    @include iga-button-solid($lightPrimaryColor)
+    @include iga-button-solid($lightPrimaryColor);
 }
