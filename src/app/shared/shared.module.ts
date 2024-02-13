@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 
 import { LoginValidationErrorsPipe } from './pipes/login-validation-errors.pipe';
 import { CalculateAgePipe } from './pipes/calculate-age.pipe';
-import { titleStyleDirective } from './title-style.directive';
+import { titleStyleDirective } from './directives/title-style.directive';
 import { FullNamePipe } from './pipes/full-name.pipe';
 
 @NgModule({

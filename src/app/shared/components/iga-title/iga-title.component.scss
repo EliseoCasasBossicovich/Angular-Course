@@ -1,3 +1,5 @@
+@import "../../styles/operators";
+
 :host(.title-s) {
   .title {
     font-size: 18px;
@@ -6,6 +8,12 @@
 :host(.title-m) {
   .title {
     font-size: 24px;
+  }
+}
+
+:host(.title-xxl) {
+  .title {
+    font-size: 15rem;
   }
 }
 

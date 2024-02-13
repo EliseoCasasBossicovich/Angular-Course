@@ -30,7 +30,7 @@
   </mat-drawer>
 
   <div class="dashboard-content">
-    <mat-toolbar color="primary" class="dashboard-toolbar">
+    <mat-toolbar class="dashboard-toolbar">
       <button
         (click)="drawer.toggle()"
         mat-icon-button
@@ -39,8 +39,7 @@
       >
         <mat-icon>menu</mat-icon>
       </button>
-      <iga-title class="title-m" [titleText]="'Institucional - Gestión de Alumnos'"></iga-title>
-      <span class="dashboard-toolbar__spacer"></span>
+      <iga-title class="title-m dashboard-toolbar__title" [titleText]="'Institucional - Gestión de Alumnos'"></iga-title>
     </mat-toolbar>
     <div class="section">
       <router-outlet></router-outlet>

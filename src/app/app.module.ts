@@ -6,8 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardModule } from './layouts/dashboard/dashboard.module';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,

@@ -1,0 +1,12 @@
+.not-found {
+    padding: 6rem;
+    &__container {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+
+    &-subtitle {
+        margin-left: 1rem;
+    }
+  }
+}

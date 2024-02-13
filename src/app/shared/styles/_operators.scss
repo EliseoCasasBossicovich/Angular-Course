@@ -1,0 +1,44 @@
+@import "./variables";
+
+@mixin iga-button-solid($background: $primary-brand, $color: $white) {
+  background-color: $background;
+  color: $color;
+  border: none;
+  border-radius: 15px;
+
+  &:hover {
+    background-color: lighten($background, 10%);
+  }
+
+  &:active {
+    background-color: lighten($background, 20%);
+  }
+
+  &:disabled {
+    background-color: $disabled;
+  }
+}
+
+@mixin mobile {
+  @media only screen and (min-width: 320px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media only screen and (min-width: 540px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media only screen and (min-width: 992px) {
+    @content;
+  }
+}
+
+@mixin large-desktop {
+  @media only screen and (min-width: 1200px) {
+    @content;
+  }
+}

@@ -1,9 +1,22 @@
+@import "../../shared/styles/variables";
+
 .dashboard {
   height: 100vh;
 
   &-sidenav {
     padding: 2rem;
     width: 15rem;
+  }
+  &-toolbar {
+    background-color: $darkPrimaryColor;
+
+    &__title {
+      color: $white;
+    }
+
+    &__menu-button{
+      color: $white;
+    }
   }
 }
 

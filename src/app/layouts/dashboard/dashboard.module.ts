@@ -15,7 +15,8 @@ import { CoursesComponent } from './pages/courses/courses.component';
 import { StudentsComponent } from './pages/students/students.component';
 import { IgaTitleModule } from '../../shared/components/iga-title/iga-title.module';
 import { HomeModule } from './pages/home/home.module';
-
+import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { NotFoundModule } from './pages/not-found/not-found.module';
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -28,6 +29,7 @@ import { HomeModule } from './pages/home/home.module';
     StudentsModule,
     MatListModule,
     HomeModule,
+    NotFoundModule,
     IgaTitleModule,
     RouterModule.forChild([
       {
@@ -44,7 +46,7 @@ import { HomeModule } from './pages/home/home.module';
       },
       {
         path: '**',
-        redirectTo: 'home',
+        component: NotFoundComponent,
       }
     ]),
   ],
