@@ -22,13 +22,17 @@ let STUDENTS_DB: studentModel[] = [];
 export class StudentsService {
   constructor(private alerts: AlertsService, private httpClient: HttpClient) {}
 
-  generateString(length: number) {
-    const characters =
-      'ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789';
-    let result = ' ';
-    const charactersLength = characters.length;
+  generateRandomNumberString(length: number): string {
+    const characters = '0123456789';
+    const charactersArray = Array.from(new Set(characters));
+    const charactersLength = charactersArray.length;
+    const randomValues = new Uint32Array(length);
+    crypto.getRandomValues(randomValues);
+
+    let result = '';
     for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      const randomIndex = randomValues[i] % charactersLength;
+      result += charactersArray[randomIndex];
     }
     return result;
   }
@@ -64,27 +68,37 @@ export class StudentsService {
     return this.httpClient
       .post<studentModel>(`${environment.apiURL}/students`, {
         ...payload,
-        token: this.generateString(15),
+        token: this.generateRandomNumberString(8),
       })
       .pipe(mergeMap(() => this.getStudents()));
   }
 
-  updateStudentsById(id: number | string, data: Partial<studentModel>): Observable<studentModel> {
-    return this.httpClient.get<studentModel>(`${environment.apiURL}/students/${id}`).pipe(
-      concatMap((student: studentModel) => {
-        const updatedStudent = { ...student, ...data };
-        return this.httpClient.put<studentModel>(`${environment.apiURL}/students/${id}`, updatedStudent).pipe(
-          catchError((error) => {
-            console.error('Error updating student:', error);
-            return throwError(error);
-          })
-        );
-      }),
-      catchError((error) => {
-        console.error('Error fetching student:', error);
-        return throwError(error);
-      })
-    );
+  updateStudentsById(
+    id: number | string,
+    data: Partial<studentModel>
+  ): Observable<studentModel> {
+    return this.httpClient
+      .get<studentModel>(`${environment.apiURL}/students/${id}`)
+      .pipe(
+        concatMap((student: studentModel) => {
+          const updatedStudent = { ...student, ...data };
+          return this.httpClient
+            .put<studentModel>(
+              `${environment.apiURL}/students/${id}`,
+              updatedStudent
+            )
+            .pipe(
+              catchError((error) => {
+                console.error('Error updating student:', error);
+                return throwError(error);
+              })
+            );
+        }),
+        catchError((error) => {
+          console.error('Error fetching student:', error);
+          return throwError(error);
+        })
+      );
   }
 
   deleteStudent(studentID: number) {
