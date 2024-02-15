@@ -1,0 +1,126 @@
+{
+  "students": [
+    {
+      "id": "2222",
+      "firstName": "Viecente",
+      "lastName": "Torrez",
+      "birthDate": "2002-01-10",
+      "email": "vt@gmail.com",
+      "cellPhone": 3343333234,
+      "country": "Argentina",
+      "role": "ESTUDIANTE",
+      "password": "123233"
+    },
+    {
+      "id": "9534",
+      "firstName": "Maria",
+      "lastName": "Perez",
+      "birthDate": "1998-12-5",
+      "email": "mp@gmail.com",
+      "cellPhone": 3343333234,
+      "country": "Uruguay",
+      "role": "ESTUDIANTE",
+      "password": "123233"
+    },
+    {
+      "id": "4173",
+      "firstName": "Carlos",
+      "lastName": "Pan",
+      "birthDate": "1999-02-5",
+      "email": "cp@gmail.com",
+      "cellPhone": 3343333234,
+      "country": "Argentina",
+      "role": "ESTUDIANTE",
+      "password": "123233"
+    },
+    {
+      "id": "ebd6",
+      "firstName": "Rocio",
+      "lastName": "Arenas",
+      "birthDate": "2000-12-5",
+      "email": "ra@gmail.com",
+      "cellPhone": 3343333224,
+      "country": "Argentina",
+      "role": "ADMIN",
+      "password": "123233"
+    },
+    {
+      "id": "2fae",
+      "firstName": "Eliseo",
+      "lastName": "Casas",
+      "birthDate": "2002-02-02",
+      "cellPhone": "344324344",
+      "email": "beliseocasas@gmail.com",
+      "country": "Argentina",
+      "role": "ADMIN",
+      "password": "1234",
+      "token": " v4ChaEV6y4PykSH"
+    },
+    {
+      "id": "b59b",
+      "firstName": "sape",
+      "lastName": "epas",
+      "birthDate": "1233-12-23",
+      "cellPhone": "34234234324",
+      "email": "se@gmail.com",
+      "country": "Argentina",
+      "role": "STUDENT",
+      "password": "234234",
+      "token": " hyTei0Lyme2KñÑZ"
+    },
+    {
+      "id": "340b",
+      "firstName": "rer",
+      "lastName": "rar",
+      "birthDate": "2014-02-20",
+      "cellPhone": "342343424",
+      "email": "rr@gmail.com",
+      "country": "Uruguay",
+      "role": "STUDENT",
+      "password": "423434",
+      "token": " K3JAGoLwvsiSJVO"
+    }
+  ],
+  "courses": [
+    {
+      "id": "1",
+      "courseName": "JavaScript",
+      "description": "JavaScript, un lenguaje de programación de alto nivel, es fundamental en el desarrollo web contemporáneo, proporcionando la capacidad de crear sitios interactivos y dinámicos.",
+      "shortDescription": "Pilar esencial del desarrollo web interactivo.",
+      "months": 4,
+      "cost": 30
+    },
+    {
+      "id": "2",
+      "courseName": "Python:",
+      "description": "Python, un lenguaje de programación de propósito general, se destaca por su legibilidad y versatilidad, siendo prominente en áreas como el desarrollo web, el análisis de datos y la inteligencia artificial.",
+      "shortDescription": "Herramienta versátil y poderosa en el ámbito de la programación.",
+      "months": 3,
+      "cost": 30
+    },
+    {
+      "id": "3",
+      "courseName": "React.js",
+      "description": " React.js, una biblioteca de JavaScript desarrollada por Facebook, se utiliza para la construcción de interfaces de usuario interactivas, siendo especialmente adecuada para aplicaciones web modernas.",
+      "shortDescription": "Fundamento esencial para interfaces dinámicas en el desarrollo web.",
+      "months": 3,
+      "cost": 20
+    },
+    {
+      "id": "4",
+      "courseName": "Angular",
+      "description": "Angular, un framework de JavaScript mantenido por Google, permite el desarrollo eficiente de aplicaciones web de una sola página y aplicaciones progresivas.",
+      "shortDescription": "Marco de referencia para la creación de aplicaciones web avanzadas.",
+      "months": 4,
+      "cost": 30
+    },
+    {
+      "id": "5",
+      "courseName": "Django",
+      "description": "Django, un framework de desarrollo web en Python, se caracteriza por su enfoque en el desarrollo rápido y limpio de aplicaciones, siendo ampliamente utilizado en la comunidad de desarrollo.",
+      "shortDescription": "Herramienta eficiente para el desarrollo web ágil.",
+      "months": 3,
+      "cost": 30
+    }
+  ]
+}

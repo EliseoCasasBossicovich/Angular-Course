@@ -1,53 +1,95 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { studentModel } from '../../shared/models/students.model';
-import { delay, of } from 'rxjs';
+import {
+  Observable,
+  catchError,
+  concatMap,
+  delay,
+  mergeMap,
+  of,
+  throwError,
+} from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { AlertsService } from './alerts.service';
+import { environment } from '../../../enviroments/environment';
+import { Pagination } from '../../shared/models/pagination';
 
-const STUDENTS_DB: studentModel[] = [
-  {
-    id: '4c6a1be1-9a27-4371-435e-eba0dae7bbdc',
-    firstName: 'Juan Cruz',
-    lastName: 'Gomez',
-    birthDate: '2000-06-23',
-    email: 'jxg@gmail.com',
-    cellPhone: 3343333234,
-    country: 'Argentina',
-    role: 'ADMINISTRADOR',
-    password: '123233'
-  },
-  {
-    id: '22229ab5-14b9-488e-9105-a0aca00dde3c',
-    firstName: 'Viecente',
-    lastName: 'Torrez',
-    birthDate: '2002-01-10',
-    email: 'vt@gmail.com',
-    cellPhone: 3343333234,
-    country: 'Argentina',
-    role: 'ESTUDIANTE',
-    password: '123233'
-  },
-  {
-    id: '95347731-7f94-1be3-af93-2acac36658e0',
-    firstName: 'Maria',
-    lastName: 'Perez',
-    birthDate: '1998-12-5',
-    email: 'mp@gmail.com',
-    cellPhone: 3343333234,
-    country: 'Uruguay',
-    role: 'ESTUDIANTE',
-    password: '123233'
-  },
-];
+const ROLES_DB: string[] = ['ADMIN', 'USER'];
 
-@Injectable({
-  providedIn: 'root'
-})
+let STUDENTS_DB: studentModel[] = [];
 
+@Injectable()
 export class StudentsService {
-  constructor(@Inject('USER_TOKEN') userToken: string) { 
-    console.log('Se instanció el servicio', userToken);
+  constructor(private alerts: AlertsService, private httpClient: HttpClient) {}
+
+  generateString(length: number) {
+    const characters =
+      'ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789';
+    let result = ' ';
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
   }
 
-  gestStudents() {
-    return of (STUDENTS_DB).pipe(delay(2000));
+  getStudentsById(id: number | string): Observable<studentModel | undefined> {
+    return this.httpClient.get<studentModel>(
+      `${environment.apiURL}/students/${id}`
+    );
+  }
+
+  getRoles(): Observable<string[]> {
+    return of(ROLES_DB).pipe(delay(1000));
+  }
+
+  getStudents() {
+    return this.httpClient
+      .get<studentModel[]>(`${environment.apiURL}/students`, {})
+      .pipe(
+        catchError((error) => {
+          this.alerts.showError('Error al cargar los usuarios');
+          return of([]);
+        })
+      );
+  }
+
+  paginate(page: number, perPage = 5) {
+    return this.httpClient.get<Pagination<studentModel>>(
+      `${environment.apiURL}/students?_page=${page}&_per_page=${perPage}`
+    );
+  }
+
+  createStudents(payload: studentModel) {
+    return this.httpClient
+      .post<studentModel>(`${environment.apiURL}/students`, {
+        ...payload,
+        token: this.generateString(15),
+      })
+      .pipe(mergeMap(() => this.getStudents()));
+  }
+
+  updateStudentsById(id: number | string, data: Partial<studentModel>): Observable<studentModel> {
+    return this.httpClient.get<studentModel>(`${environment.apiURL}/students/${id}`).pipe(
+      concatMap((student: studentModel) => {
+        const updatedStudent = { ...student, ...data };
+        return this.httpClient.put<studentModel>(`${environment.apiURL}/students/${id}`, updatedStudent).pipe(
+          catchError((error) => {
+            console.error('Error updating student:', error);
+            return throwError(error);
+          })
+        );
+      }),
+      catchError((error) => {
+        console.error('Error fetching student:', error);
+        return throwError(error);
+      })
+    );
+  }
+
+  deleteStudent(studentID: number) {
+    return this.httpClient
+      .delete<studentModel>(`${environment.apiURL}/students/${studentID}`)
+      .pipe(mergeMap(() => this.getStudents()));
   }
 }

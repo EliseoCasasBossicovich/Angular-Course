@@ -1,114 +1,86 @@
-import { Component } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { Component, OnInit } from '@angular/core';
+import { studentModel } from '../../../../shared/models/students.model';
 import { StudentsService } from '../../../../core/services/students.service';
 import { LoadingService } from '../../../../core/services/loading.service';
-import { studentModel } from '../../../../shared/models/students.model';
-
+import { forkJoin } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { PageEvent } from '@angular/material/paginator';
 @Component({
   selector: 'app-students',
   templateUrl: './students.component.html',
   styleUrl: './students.component.scss'
 })
-export class StudentsComponent {
-  passEdit: any;
-  show = false;
-  studentAdd: studentModel | undefined;
-  button: any;
+export class StudentsComponent implements OnInit {
+  displayedColumns: string[] = ['id', 'fullName', 'age', 'email', 'cellPhone', 'country', 'role', 'action',];
+  roles: string[] = [];
 
-  displayedColumns: string[] = [
-    'id',
-    'fullName',
-    'age',
-    'email',
-    'cellPhone',
-    'country',
-    'role',
-    'action',
-  ];
   dataSource: studentModel[] = [];
+  totalItems = 0;
+  pageSize = 5;
+  currentPage = 1;
 
   constructor(
-    private _snackBar: MatSnackBar,
     private studentsService: StudentsService,
-    private LoadingService: LoadingService
+    private LoadingService: LoadingService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.getPageData();
+  }
+
+  getPageData(): void {
     this.LoadingService.setIsLoading(true);
-    this.studentsService.gestStudents().subscribe({
-      next: (students) => {
-      this.dataSource = students;
+    forkJoin([
+      this.studentsService.getRoles(),
+      this.studentsService.paginate(this.currentPage),
+    ]).subscribe({
+      next: (value) => {
+        this.roles = value[0];
+
+        const paginationResult = value[1];
+        this.totalItems = paginationResult.items;
+        this.dataSource = paginationResult.data;
       },
       complete: () => {
         this.LoadingService.setIsLoading(false);
-      }      
+      },
+      
     });
   }
 
-  onStudentSubmitted(ev: studentModel): void{
-    if(ev.id===undefined){
-      this.dataSource = [...this.dataSource, {...ev, 
-        id: crypto.randomUUID()}];
-        this.show=false;
-    }else{
-      this.dataSource = this.updateStudent(ev);
-      this.updateList();
-      this.show=false;
-    }
-  }
-
-  onPressStudentAdd(){
-    this.show=true;
-    this.passEdit=this.studentAdd;
-    this.button="Agregar";
-  }
-
-  updateList() {
-    console.log("UPDATELIST")
-    this.dataSource = [...this.getAllStudents()]
-    
-  }
-
-  getAllStudents() {
-    return this.dataSource
-  }
-
-  deleteStudent(id: number): studentModel[] {
-    console.log(this.dataSource)
-    const dataSourceFiltered = this.dataSource.filter(el   => el.id != id.toString());
-    this.dataSource = [...dataSourceFiltered];
-    return this.dataSource
-  }
-
-  onStudentDelete(id: number): void {
-    this.deleteStudent(id);
-    this.updateList()
-    this.mostrarAlerta("Alumno fue eliminado con exito","Bien!");
-  }
-
-  updateStudent(students: studentModel) {
-    const index = this.dataSource.findIndex(el => el.id == students.id)     
-    this.dataSource[index] = students;      
-    return this.dataSource
-  }
-
-  onPressStudentEdit(students:studentModel) {
-    this.passEdit = students;
-    this.show=true;      
-    this.button = 'Actualizar';      
-  }
-
-  recibirCancelar(can:boolean): void{    
-    this.show=false;
-  }
-
-  mostrarAlerta(msg: string, accion: string) {
-    this._snackBar.open(msg, accion,{
-      horizontalPosition:"center",
-      verticalPosition:"top",
-      duration: 2000
+  onPage(ev: PageEvent) {
+    this.currentPage = ev.pageIndex + 1;
+    this.studentsService.paginate(this.currentPage, ev.pageSize).subscribe({
+      next: (paginateResult) => {
+        this.totalItems = paginateResult.items;
+        this.dataSource = paginateResult.data;
+        this.pageSize = ev.pageSize;
+      },
     });
   }
- 
+
+  onDeleteStudent(ev: studentModel): void {
+    this.LoadingService.setIsLoading(true);
+    this.studentsService.deleteStudent(ev.id).subscribe({
+      next: (students) => {
+        this.dataSource = [...students];
+      },
+      complete: () => {
+        this.LoadingService.setIsLoading(false);
+      },
+    });
+  }
+
+  onStudentSubmitted(ev: studentModel): void {
+    this.LoadingService.setIsLoading(true);
+    this.studentsService.createStudents(ev).subscribe({
+      next: (student) => {
+        this.dataSource = [...student];
+      },
+      complete: () => {
+        this.LoadingService.setIsLoading(false);
+      },
+    });
+  }
 }

@@ -22,7 +22,7 @@ export class AuthService {
 
   login(data: LoginData): void {
     const MOCK_USER = {
-      id: '22229ab5-14b9-488e-9105-a0aca00dde3c',
+      id: 9999,
       firstName: 'test',
       lastName: 'tester',
       birthDate: '0000-00-00',
