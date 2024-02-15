@@ -1,11 +1,11 @@
-<section>
+<section class="students-admin">
   <div class="mb-3">
     <app-student-form
       (studentSubmitted)="onStudentSubmitted($event)"
     ></app-student-form>
   </div>
 
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" class="">
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef>No.</th>
 
@@ -54,9 +54,9 @@
       <th mat-header-cell *matHeaderCellDef>Acciones</th>
 
       <td mat-cell *matCellDef="let student">
-        <!-- <button [routerLink]="student.id" color="accent" mat-icon-button>
+        <button [routerLink]="student.id" color="accent" mat-icon-button>
           <mat-icon>visibility</mat-icon>
-        </button> -->
+        </button>
         <button (click)="onDeleteStudent(student)" mat-icon-button color="warn">
           <mat-icon>delete</mat-icon>
         </button>

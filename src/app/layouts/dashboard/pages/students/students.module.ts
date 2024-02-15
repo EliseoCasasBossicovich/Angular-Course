@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
@@ -34,6 +35,7 @@ import { StudentsService } from '../../../../core/services/students.service';
     MatIconModule,
     MatPaginator,
     MatLabel,
+    RouterModule,
   ],
   exports: [StudentsComponent],
   providers: [
