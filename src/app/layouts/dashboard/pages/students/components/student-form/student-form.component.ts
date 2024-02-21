@@ -3,13 +3,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-student-form',
+  selector: 'iga-student-form',
   templateUrl: './student-form.component.html',
   styleUrl: './student-form.component.scss',
 })
 export class StudentFormComponent implements OnChanges{
   studentsForm: FormGroup;
-  buttonAction:string="Guardar";
+  buttonAction: string= "Guardar";
   buttonPress = false;
 
   @Input()  passEdit: any;

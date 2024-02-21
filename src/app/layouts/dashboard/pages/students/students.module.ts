@@ -13,16 +13,12 @@ import { MatPaginator } from '@angular/material/paginator';
 
 import { StudentDetailComponent } from './pages/student-detail/student-detail.component';
 import { SharedModule } from '../../../../shared/shared.module';
-import { StudentFormComponent } from './components/student-form/student-form.component';
 import { StudentsComponent } from './students.component';
 import { StudentsService } from '../../../../core/services/students.service';
+import { StudentFormModule } from './components/student-form/student-form.module';
 
 @NgModule({
-  declarations: [
-    StudentsComponent,
-    StudentFormComponent,
-    StudentDetailComponent,
-  ],
+  declarations: [StudentsComponent, StudentDetailComponent],
   imports: [
     CommonModule,
     MatTableModule,
@@ -36,10 +32,9 @@ import { StudentsService } from '../../../../core/services/students.service';
     MatPaginator,
     MatLabel,
     RouterModule,
+    StudentFormModule,
   ],
   exports: [StudentsComponent],
-  providers: [
-    StudentsService,
-  ],
+  providers: [StudentsService],
 })
 export class StudentsModule {}

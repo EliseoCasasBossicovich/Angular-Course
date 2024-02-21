@@ -1,9 +1,7 @@
 <section class="students-admin">
-  <div class="mb-3">
-    <app-student-form
-      (studentSubmitted)="onStudentSubmitted($event)"
-    ></app-student-form>
-  </div>
+  <iga-student-form
+    (studentSubmitted)="onStudentSubmitted($event)"
+  ></iga-student-form>
 
   <table mat-table [dataSource]="dataSource" class="">
     <ng-container matColumnDef="id">
@@ -68,6 +66,7 @@
   </table>
 
   <mat-paginator
+    class="paginator"
     (page)="onPage($event)"
     [length]="totalItems"
     [pageSize]="pageSize"

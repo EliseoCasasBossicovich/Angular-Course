@@ -1,17 +1,25 @@
+@import "../../../../../../shared/styles/operators";
+@import "../../../../../../shared/styles/variables";
+
 .main-form {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  align-items: center;
   margin-bottom: 4rem;
-}
-.form {
-  display: flex;
-  flex-direction: column;
-  width: 60rem;
 
-  &__button {
-    border-radius: 25px;
-    width: 30rem;
+  &__form {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+  &__buttons {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: right;
+
+    &-button {
+      @include iga-button-solid();
+    }
   }
 }
