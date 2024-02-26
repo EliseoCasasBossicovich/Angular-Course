@@ -8,7 +8,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 
 import { StudentFormComponent } from './student-form.component';
-
+import { IgaTitleModule } from '../../../../../../shared/components/iga-title/iga-title.module';
 
 @NgModule({
   declarations: [StudentFormComponent],
@@ -19,9 +19,8 @@ import { StudentFormComponent } from './student-form.component';
     MatSelectModule,
     ReactiveFormsModule,
     MatButtonModule,
+    IgaTitleModule,
   ],
-  exports: [
-    StudentFormComponent
-  ]
+  exports: [StudentFormComponent],
 })
-export class StudentFormModule { }
+export class StudentFormModule {}

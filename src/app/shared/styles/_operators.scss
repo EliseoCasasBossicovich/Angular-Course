@@ -1,6 +1,6 @@
 @import "./variables";
 
-@mixin iga-button-solid ($background: $lightPrimaryColor, $color: $white) {
+@mixin iga-button-solid($background: $lightPrimaryColor, $color: $white, $shadow: true, $hover-color: null, $active-color: null) {
   background-color: $background;
   color: $color;
   border: none;
@@ -8,12 +8,20 @@
   width: 10rem;
   height: 2rem;
 
+  @if $shadow {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
   &:hover {
-    background-color: lighten($background, 10%);
+    background-color: if($hover-color, $hover-color, lighten($background, 10%));
+    @if $shadow {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
   }
 
   &:active {
-    background-color: lighten($background, 20%);
+    background-color: if($active-color, $active-color, lighten($background, 20%));
+    box-shadow: none;
   }
 }
 

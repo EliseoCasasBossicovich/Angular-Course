@@ -79,6 +79,30 @@
       "role": "STUDENT",
       "password": "423434",
       "token": " K3JAGoLwvsiSJVO"
+    },
+    {
+      "id": "9ce2",
+      "firstName": "fede",
+      "lastName": "castro",
+      "birthDate": "2002-02-02",
+      "cellPhone": "234532466",
+      "email": "fc@gmail.com",
+      "country": "Argentina",
+      "role": "STUDENT",
+      "password": "1234",
+      "token": "13883101"
+    },
+    {
+      "id": "fd07",
+      "firstName": "Eliseo",
+      "lastName": "bossi",
+      "birthDate": "2002-02-02",
+      "cellPhone": "46433456",
+      "email": "as@gmail.co",
+      "country": "Argentina",
+      "role": "STUDENT",
+      "password": "234234",
+      "token": "20803193"
     }
   ],
   "courses": [

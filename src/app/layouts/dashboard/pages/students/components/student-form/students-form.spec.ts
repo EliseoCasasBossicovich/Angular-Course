@@ -25,10 +25,15 @@ describe('StudentFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should populate form with student data when passEdit is set', () => {
+  it('should populate form with student data when inputs is set', () => {
     const studentData = StudentsMock[0];
-    component.passEdit = studentData;
-    component.ngOnChanges();
+    component.inputs = { passEdit: studentData };
+    component.ngOnChanges({ inputs: {
+      currentValue: component.inputs,
+      previousValue: undefined,
+      firstChange: false,
+      isFirstChange:() => false,
+    } });
     expect(component.studentsForm.value).toEqual(studentData);
   });
 

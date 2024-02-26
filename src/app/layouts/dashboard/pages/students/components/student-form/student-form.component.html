@@ -1,30 +1,38 @@
 <div class="main-form">
-  <form [formGroup]="studentsForm" (ngSubmit)="onSubmit()" class="main-form__form">
+  <iga-title
+    class="title-m main-form__form-title"
+    [titleText]="'Añadir nuevo Alumno'"
+  ></iga-title>
+  <form
+    [formGroup]="studentsForm"
+    (ngSubmit)="onSubmit()"
+    class="main-form__form"
+  >
     <mat-form-field>
       <mat-label>Nombre</mat-label>
       <input formControlName="firstName" matInput type="text" />
     </mat-form-field>
-  
+
     <mat-form-field>
       <mat-label>Apellido</mat-label>
       <input formControlName="lastName" matInput type="text" />
     </mat-form-field>
-  
+
     <mat-form-field>
       <mat-label>Fecha de Nacimiento</mat-label>
       <input formControlName="birthDate" matInput type="date" />
     </mat-form-field>
-  
+
     <mat-form-field>
       <mat-label>Email</mat-label>
       <input formControlName="email" matInput type="email" />
     </mat-form-field>
-  
+
     <mat-form-field>
       <mat-label>Movil</mat-label>
       <input formControlName="cellPhone" matInput type="tel" />
     </mat-form-field>
-  
+
     <mat-form-field>
       <mat-label>Pais</mat-label>
       <mat-select formControlName="country">
@@ -33,7 +41,7 @@
         <mat-option value="Chile">Chile</mat-option>
       </mat-select>
     </mat-form-field>
-  
+
     <mat-form-field>
       <mat-label>Rol</mat-label>
       <mat-select formControlName="role">
@@ -41,15 +49,18 @@
         <mat-option value="STUDENT">ESTUDIANTE</mat-option>
       </mat-select>
     </mat-form-field>
-  
+
     <mat-form-field>
       <mat-label>Contraseña</mat-label>
       <input formControlName="password" matInput type="password" />
     </mat-form-field>
   </form>
-<div class="main-form__buttons">
-  
-  <button class="main-form__buttons-button" mat-flat-button (click)="onPressCancel()">Cancelar</button>
-  <button class="main-form__buttons-button" mat-flat-button (click)="onSubmit()">{{ buttonAction }}</button>
-</div>
+
+  <div class="main-form__buttons">
+    <button class="main-form__buttons-button" type="submit">
+      {{ buttonAction }}</button
+    ><button class="main-form__buttons-button" (click)="onPressCancel()">
+      Cancelar
+    </button>
+  </div>
 </div>

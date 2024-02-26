@@ -10,8 +10,13 @@
   &__form {
     display: flex;
     flex-direction: row;
-    width: 100%;
+    justify-content: space-between;
+    
+    &-title {
+      margin: 2rem 0rem;
+    }
   }
+
   &__buttons {
     display: flex;
     flex-wrap: nowrap;
@@ -19,7 +24,16 @@
     justify-content: right;
 
     &-button {
-      @include iga-button-solid();
+      @include iga-button-solid(
+        $background: #3498db,
+        $color: #ffffff,
+        $shadow: true,
+        $hover-color: #2980b9,
+        $active-color: #1f618d
+      );
+    }
+    &-button:first-child {
+      margin-right: 2rem;
     }
   }
 }

@@ -1,98 +1,95 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'iga-student-form',
   templateUrl: './student-form.component.html',
-  styleUrl: './student-form.component.scss',
+  styleUrls: ['./student-form.component.scss'],
 })
-export class StudentFormComponent implements OnChanges{
-  studentsForm: FormGroup;
-  buttonAction: string= "Guardar";
+export class StudentFormComponent implements OnChanges {
+  @Input() inputs: any;
+  @Output() studentSubmitted = new EventEmitter();
+  @Output() cancel = new EventEmitter<boolean>();
+
+  studentsForm!: FormGroup;
+  buttonAction: string = "Guardar";
   buttonPress = false;
 
-  @Input()  passEdit: any;
-  @Input()  button: any
-  @Input()  alumnoAdd: any;
+  constructor(private fb: FormBuilder, private _snackBar: MatSnackBar) {
+    this.createForm();
+  }
 
-  @Output()
-  studentSubmitted = new EventEmitter();
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['inputs'] && changes['inputs'].currentValue) {
+      this.patchForm(changes['inputs'].currentValue['passEdit']);
+    } else {
+      this.resetForm();
+    }
+  }
 
-  @Output()
-  cancel: EventEmitter<any> = new EventEmitter();
-  
-  constructor(private fb: FormBuilder, private _snackBar: MatSnackBar){
+  createForm(): void {
     this.studentsForm = this.fb.group({
-      firstName: this.fb.control('', Validators.required),
-      lastName: this.fb.control('', Validators.required),
-      birthDate: this.fb.control('', Validators.required),
-      cellPhone: this.fb.control('', Validators.required),
-      email: this.fb.control('', Validators.required),
-      country: this.fb.control('', Validators.required),
-      role: this.fb.control('', Validators.required),
-      password: this.fb.control('', Validators.required),
-    })
-  }
-  
-  ngOnChanges(): void { 
-    if(this.passEdit==undefined){
-      this.studentsForm = this.fb.group({
-        firstName: this.fb.control('', Validators.required),
-        lastName: this.fb.control('', Validators.required),
-        birthDate: this.fb.control('', Validators.required),
-        cellPhone: this.fb.control('', Validators.required),
-        email: this.fb.control('', Validators.required),
-        country: this.fb.control('', Validators.required),
-        role: this.fb.control('', Validators.required),
-        password: this.fb.control('', Validators.required),
-      })
-    }else{
-      this.studentsForm = this.fb.group({
-        firstName: this.fb.control(this.passEdit.firstName, Validators.required),
-        lastName: this.fb.control(this.passEdit.lastName, Validators.required),
-        birthDate: this.fb.control(this.passEdit.birthDate, Validators.required),
-        cellPhone: this.fb.control(this.passEdit.cellPhone, Validators.required),
-        email: this.fb.control(this.passEdit.email, Validators.required),
-        country: this.fb.control(this.passEdit.country, Validators.required),
-        role: this.fb.control(this.passEdit.role, Validators.required),
-        password: this.fb.control(this.passEdit.password, Validators.required),
-      })
-    } 
-
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      birthDate: ['', Validators.required],
+      cellPhone: ['', [Validators.required, Validators.maxLength(10)]],
+      email: ['', [Validators.required, Validators.email]],
+      country: ['', Validators.required],
+      role: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(8), this.passwordValidator()]],
+    });
   }
 
-  onSubmit(): void{
-    
-    if(this.buttonPress==true){
-      this.cancel.emit(this.buttonPress);
-      this.studentsForm.reset();
-      this.showAlert("Atención","Se cancelo la operacion");
-    }else{
-      if(this.studentsForm.invalid){
+  passwordValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const password = control.value;
+      return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?!.*\d{3})^.{8,}$/.test(password) ? null : { 'invalidPassword': true };
+    };
+  }
+
+  resetForm(): void {
+    this.studentsForm.reset();
+  }
+
+  patchForm(data: any): void {
+    this.studentsForm.patchValue(data);
+  }
+
+  onSubmit(): void {
+    if (this.buttonPress) {
+      this.onCancel();
+    } else {
+      if (this.studentsForm.invalid) {
         this.studentsForm.markAllAsTouched();
-      }else if(this.studentsForm.value.id == '0'){
-        this.studentSubmitted.emit(this.studentsForm.value);        
-        this.studentsForm.reset();
-        this.showAlert("Atención","Se agrego el estudiante");
-      }else{
-        this.studentSubmitted.emit(this.studentsForm.value);
-        this.studentsForm.reset();
-        this.showAlert("Atención","Se edito el estudiante");
+        this.showAlert("Atención", "Por favor complete todos los campos requeridos");
+      } else {
+        this.onAddStudent();
       }
     }
   }
 
-  onPressCancel(){
-    this.buttonPress=true;
+  onCancel(): void {
+    this.cancel.emit(true);
+    this.resetForm();
+    this.showAlert("Atención", "Se canceló la operación");
   }
 
-  showAlert(msg: string, accion: string) {
-    this._snackBar.open(msg, accion,{
-      horizontalPosition:"center",
-      verticalPosition:"top",
+  onAddStudent(): void {
+    this.studentSubmitted.emit(this.studentsForm.value);
+    this.resetForm();
+    this.showAlert("Atención", "Se agregó el estudiante");
+  }
+
+  onPressCancel(): void {
+    this.buttonPress = true;
+  }
+
+  showAlert(msg: string, action: string): void {
+    this._snackBar.open(msg, action, {
+      horizontalPosition: "center",
+      verticalPosition: "top",
       duration: 2000
     });
   }
-  
 }

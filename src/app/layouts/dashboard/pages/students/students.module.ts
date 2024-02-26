@@ -11,14 +11,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator } from '@angular/material/paginator';
 
-import { StudentDetailComponent } from './pages/student-detail/student-detail.component';
 import { SharedModule } from '../../../../shared/shared.module';
 import { StudentsComponent } from './students.component';
 import { StudentsService } from '../../../../core/services/students.service';
 import { StudentFormModule } from './components/student-form/student-form.module';
+import { IgaTitleModule } from '../../../../shared/components/iga-title/iga-title.module';
+import { StudentDetailModule } from './pages/student-detail/stuedent-detail.module';
 
 @NgModule({
-  declarations: [StudentsComponent, StudentDetailComponent],
+  declarations: [StudentsComponent,],
   imports: [
     CommonModule,
     MatTableModule,
@@ -33,6 +34,8 @@ import { StudentFormModule } from './components/student-form/student-form.module
     MatLabel,
     RouterModule,
     StudentFormModule,
+    IgaTitleModule,
+    StudentDetailModule,
   ],
   exports: [StudentsComponent],
   providers: [StudentsService],

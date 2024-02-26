@@ -1,9 +1,13 @@
 <section class="students-admin">
+  <iga-title class="students-admin__title" [titleText]="'Gestión de Alumnos'"></iga-title>
+  <p>Desde aquí puedes añadir nuevos Estudiantes como tambien eliminarlos o ver los detalles</p>
   <iga-student-form
     (studentSubmitted)="onStudentSubmitted($event)"
   ></iga-student-form>
 
-  <table mat-table [dataSource]="dataSource" class="">
+  <iga-title class="title-m students-admin__table-title" [titleText]="'Lista de Alumnos'"></iga-title>
+
+  <table mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef>No.</th>
 

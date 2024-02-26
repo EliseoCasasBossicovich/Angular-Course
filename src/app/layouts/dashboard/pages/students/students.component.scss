@@ -1,7 +1,16 @@
 .students-admin {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+
+  &__title {
+    margin-top: 1rem;
+  }
+
+  &__table {
+    &-title {
+      margin-bottom: 2rem;
+    }
+  }
 }
 
 .paginator {
