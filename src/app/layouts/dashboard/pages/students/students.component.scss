@@ -1,18 +1,19 @@
+@import "../../../../shared/styles/operators";
+@import "../../../../shared/styles/variables";
+
 .students-admin {
   display: flex;
   flex-direction: column;
 
-  &__title {
-    margin-top: 1rem;
-  }
-
-  &__table {
-    &-title {
-      margin-bottom: 2rem;
-    }
+  &__button {
+    margin-bottom: 1rem;
+    @include iga-button-solid(
+        $background: #3498db,
+        $color: #ffffff,
+        $shadow: true,
+        $hover-color: #2980b9,
+        $active-color: #1f618d
+      );
   }
 }
 
-.paginator {
-  width: 100%;
-}

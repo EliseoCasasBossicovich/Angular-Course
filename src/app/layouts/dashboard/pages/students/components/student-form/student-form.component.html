@@ -1,65 +1,55 @@
-<div class="main-form">
-  <iga-title
-    class="title-m main-form__form-title"
-    [titleText]="'Añadir nuevo Alumno'"
-  ></iga-title>
-  <form
-    [formGroup]="studentsForm"
-    (ngSubmit)="onSubmit()"
-    class="main-form__form"
-  >
-    <mat-form-field>
+<div mat-dialog-content>
+  <iga-title titleText="Añadir/Editar Estudiante"></iga-title>
+
+  <form [formGroup]="studentForm" class="grid formgrid students-form">
+    <mat-form-field class="w-full">
       <mat-label>Nombre</mat-label>
-      <input formControlName="firstName" matInput type="text" />
+      <input formControlName="firstName" matInput />
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field class="w-full">
       <mat-label>Apellido</mat-label>
-      <input formControlName="lastName" matInput type="text" />
+      <input formControlName="lastName" matInput />
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field class="w-full">
       <mat-label>Fecha de Nacimiento</mat-label>
       <input formControlName="birthDate" matInput type="date" />
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field class="w-full">
       <mat-label>Email</mat-label>
-      <input formControlName="email" matInput type="email" />
+      <input formControlName="email" matInput />
     </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Movil</mat-label>
-      <input formControlName="cellPhone" matInput type="tel" />
+    <mat-form-field class="w-full">
+      <mat-label>Celular</mat-label>
+      <input formControlName="cellPhone" matInput />
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field class="w-full">
       <mat-label>Pais</mat-label>
       <mat-select formControlName="country">
-        <mat-option value="Uruguay">Uruguay</mat-option>
-        <mat-option value="Argentina">Argentina</mat-option>
         <mat-option value="Chile">Chile</mat-option>
+        <mat-option value="Argentina">Argentina</mat-option>
+        <mat-option value="Uruguay">Uruguay</mat-option>
       </mat-select>
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>Rol</mat-label>
-      <mat-select formControlName="role">
-        <mat-option value="ADMIN">ADMINISTRADOR</mat-option>
-        <mat-option value="STUDENT">ESTUDIANTE</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>Contraseña</mat-label>
-      <input formControlName="password" matInput type="password" />
     </mat-form-field>
   </form>
 
-  <div class="main-form__buttons">
-    <button class="main-form__buttons-button" type="submit">
-      {{ buttonAction }}</button
-    ><button class="main-form__buttons-button" (click)="onPressCancel()">
+  <div mat-dialog-actions class="students-form__buttons">
+    <button
+      (click)="onSaveStudent()"
+      mat-flat-button
+      class="students-form__button"
+    >
+      Guardar
+    </button>
+    <button
+      mat-dialog-close
+      mat-flat-button
+      class="students-form__button-cancel"
+    >
       Cancelar
     </button>
   </div>

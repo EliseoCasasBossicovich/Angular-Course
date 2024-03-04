@@ -1,85 +1,125 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+
 import { studentModel } from '../../../../shared/models/students.model';
 import { StudentsService } from '../../../../core/services/students.service';
 import { LoadingService } from '../../../../core/services/loading.service';
-import { forkJoin } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
-import { PageEvent } from '@angular/material/paginator';
+
+import { StudentFormComponent } from './components/student-form/student-form.component';
+
 @Component({
   selector: 'app-students',
   templateUrl: './students.component.html',
-  styleUrl: './students.component.scss'
+  styleUrl: './students.component.scss',
 })
-export class StudentsComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'fullName', 'age', 'email', 'cellPhone', 'country', 'role', 'action',];
-  roles: string[] = [];
+export class StudentsComponent {
+  displayedColumns: string[] = [
+    'id',
+    'firstName',
+    'age',
+    'email',
+    'cellPhone',
+    'country',
+    'action',
+  ];
 
-  dataSource: studentModel[] = [];
-  totalItems = 0;
-  pageSize = 5;
-  currentPage = 1;
+  students: studentModel[] = [];
 
   constructor(
+    private _snackBar: MatSnackBar,
     private studentsService: StudentsService,
-    private LoadingService: LoadingService,
-    private route: ActivatedRoute
-  ) {}
-
-  ngOnInit(): void {
-    this.getPageData();
-  }
-
-  getPageData(): void {
-    this.LoadingService.setIsLoading(true);
-    forkJoin([
-      this.studentsService.getRoles(),
-      this.studentsService.paginate(this.currentPage),
-    ]).subscribe({
-      next: (value) => {
-        this.roles = value[0];
-
-        const paginationResult = value[1];
-        this.totalItems = paginationResult.items;
-        this.dataSource = paginationResult.data;
-      },
-      complete: () => {
-        this.LoadingService.setIsLoading(false);
-      },
-      
-    });
-  }
-
-  onPage(ev: PageEvent) {
-    this.currentPage = ev.pageIndex + 1;
-    this.studentsService.paginate(this.currentPage, ev.pageSize).subscribe({
-      next: (paginateResult) => {
-        this.totalItems = paginateResult.items;
-        this.dataSource = paginateResult.data;
-        this.pageSize = ev.pageSize;
-      },
-    });
-  }
-
-  onDeleteStudent(ev: studentModel): void {
-    this.LoadingService.setIsLoading(true);
-    this.studentsService.deleteStudent(ev.id).subscribe({
+    private loadingService: LoadingService,
+    public dialog: MatDialog
+  ) {
+    this.studentsService.getStudents().subscribe({
       next: (students) => {
-        this.dataSource = [...students];
+        this.students = students;
       },
       complete: () => {
-        this.LoadingService.setIsLoading(false);
+        this.loadingService.setIsLoading(false);
+      },
+      error: () => {
+        this._snackBar.open('Error al cargar los estudiantes', 'cerrar', {
+          duration: 2000,
+        });
       },
     });
   }
 
-  onStudentSubmitted(ev: studentModel): void {
-    this.LoadingService.setIsLoading(true);
-    this.studentsService.createStudents(ev).subscribe({
-      next: (student) => {
-        this.dataSource = [...student];
+  onCreateStudent(): void {
+    this.dialog
+      .open(StudentFormComponent)
+      .afterClosed()
+      .subscribe({
+        next: (result) => {
+          if (result) {
+            this.studentsService.createStudent(result).subscribe({
+              next: (students) => {
+                this.students = students;
+                this._snackBar.open(
+                  'Estudiante creado correctamente',
+                  'cerrar',
+                  {
+                    duration: 2000,
+                  }
+                );
+              },
+            });
+          }
+        },
+      });
+  }
+
+  onEditStudent(student: studentModel) {
+    this.dialog
+      .open(StudentFormComponent, {
+        data: student,
+      })
+      .afterClosed()
+      .subscribe({
+        next: (result) => {
+          if (result) {
+            this.studentsService
+              .updateStudentById(student.id, result)
+              .subscribe({
+                next: (students) => {
+                  this.students = students;
+                  this._snackBar.open(
+                    'Estudiante actualizado correctamente',
+                    'cerrar',
+                    {
+                      duration: 2000,
+                    }
+                  );
+                },
+                error: () => {
+                  this._snackBar.open(
+                    'Error al actualizar el estudiante',
+                    'cerrar',
+                    {
+                      duration: 2000,
+                    }
+                  );
+                },
+              });
+          }
+        },
+      });
+  }
+
+  onDeleteStudent(id: number) {
+    this.studentsService.deleteStudentById(id).subscribe({
+      next: (students) => {
+        this.students = students;
+        this._snackBar.open('Estudiante eliminado correctamente', 'cerrar', {
+          duration: 2000,
+        });
       },
-      complete: () => {
-        this.LoadingService.setIsLoading(false);
+      error: () => {
+        this._snackBar.open('Error al eliminar el estudiante', 'cerrar', {
+          duration: 2000,
+        });
       },
     });
   }

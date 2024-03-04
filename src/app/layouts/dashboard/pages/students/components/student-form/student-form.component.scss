@@ -1,39 +1,28 @@
 @import "../../../../../../shared/styles/operators";
 @import "../../../../../../shared/styles/variables";
 
-.main-form {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  margin-bottom: 4rem;
-
-  &__form {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    
-    &-title {
-      margin: 2rem 0rem;
-    }
-  }
-
+.students-form {
   &__buttons {
-    display: flex;
-    flex-wrap: nowrap;
-    flex-direction: row;
-    justify-content: right;
+    justify-content: end;
+  }
+  
+  &__button {
+    @include iga-button-solid(
+      $background: #3498db,
+      $color: #ffffff,
+      $shadow: true,
+      $hover-color: #2980b9,
+      $active-color: #1f618d
+    );
 
-    &-button {
+    &-cancel {
       @include iga-button-solid(
-        $background: #3498db,
-        $color: #ffffff,
+        $background: $white,
+        $color: $primaryTextColor,
         $shadow: true,
-        $hover-color: #2980b9,
-        $active-color: #1f618d
+        $hover-color: $errorTextColor,
+        $active-color: $errorTextColor
       );
-    }
-    &-button:first-child {
-      margin-right: 2rem;
     }
   }
 }

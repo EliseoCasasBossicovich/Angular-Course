@@ -1,20 +1,20 @@
 <section class="students-admin">
-  <iga-title class="students-admin__title" [titleText]="'Gestión de Alumnos'"></iga-title>
-  <p>Desde aquí puedes añadir nuevos Estudiantes como tambien eliminarlos o ver los detalles</p>
-  <iga-student-form
-    (studentSubmitted)="onStudentSubmitted($event)"
-  ></iga-student-form>
+  <iga-title
+    [titleText]="'Estudiantes'"
+    class="students-admin__title"
+  ></iga-title>
 
-  <iga-title class="title-m students-admin__table-title" [titleText]="'Lista de Alumnos'"></iga-title>
+  <button mat-flat-button (click)="onCreateStudent()" class="students-admin__button">
+    Nuevo
+  </button>
 
-  <table mat-table [dataSource]="dataSource">
+  <table mat-table [dataSource]="students">
     <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef>No.</th>
-
+      <th mat-header-cell *matHeaderCellDef>ID</th>
       <td mat-cell *matCellDef="let student">{{ student.id }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="fullName">
+    <ng-container matColumnDef="firstName">
       <th mat-header-cell *matHeaderCellDef>Nombre</th>
       <td mat-cell *matCellDef="let student">{{ student | fullName }}</td>
     </ng-container>
@@ -25,11 +25,8 @@
     </ng-container>
 
     <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef>Correo</th>
-
-      <td mat-cell *matCellDef="let student">
-        {{ student.email }}
-      </td>
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let student">{{ student.email }}</td>
     </ng-container>
 
     <ng-container matColumnDef="cellPhone">
@@ -37,29 +34,19 @@
       <td mat-cell *matCellDef="let student">{{ student.cellPhone }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="course">
-      <th mat-header-cell *matHeaderCellDef>Curso</th>
-      <td mat-cell *matCellDef="let student">{{ student.course }}</td>
-    </ng-container>
-
     <ng-container matColumnDef="country">
       <th mat-header-cell *matHeaderCellDef>País</th>
       <td mat-cell *matCellDef="let student">{{ student.country }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="role">
-      <th mat-header-cell *matHeaderCellDef>Rol</th>
-      <td mat-cell *matCellDef="let student">{{ student.role }}</td>
-    </ng-container>
-
     <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef>Acciones</th>
-
-      <td mat-cell *matCellDef="let student">
-        <button [routerLink]="student.id" color="accent" mat-icon-button>
-          <mat-icon>visibility</mat-icon>
+      <th mat-header-cell *matHeaderCellDef style="width: 150px">Acciones</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button (click)="onEditStudent(element)">
+          <mat-icon>edit</mat-icon>
         </button>
-        <button (click)="onDeleteStudent(student)" mat-icon-button color="warn">
+
+        <button mat-icon-button (click)="onDeleteStudent(element.id)">
           <mat-icon>delete</mat-icon>
         </button>
       </td>
@@ -68,14 +55,4 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
-
-  <mat-paginator
-    class="paginator"
-    (page)="onPage($event)"
-    [length]="totalItems"
-    [pageSize]="pageSize"
-    [pageSizeOptions]="[5, 10, 25, 100]"
-    aria-label="Select page"
-  >
-  </mat-paginator>
 </section>

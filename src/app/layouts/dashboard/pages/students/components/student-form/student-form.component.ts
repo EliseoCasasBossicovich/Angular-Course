@@ -1,35 +1,23 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+
+import { studentModel } from '../../../../../../shared/models/students.model';
 
 @Component({
-  selector: 'iga-student-form',
+  selector: 'app-student-form',
   templateUrl: './student-form.component.html',
-  styleUrls: ['./student-form.component.scss'],
+  styleUrl: './student-form.component.scss',
 })
-export class StudentFormComponent implements OnChanges {
-  @Input() inputs: any;
-  @Output() studentSubmitted = new EventEmitter();
-  @Output() cancel = new EventEmitter<boolean>();
+export class StudentFormComponent {
+  studentForm: FormGroup;
 
-  studentsForm!: FormGroup;
-  buttonAction: string = "Guardar";
-  buttonPress = false;
-
-  constructor(private fb: FormBuilder, private _snackBar: MatSnackBar) {
-    this.createForm();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['inputs'] && changes['inputs'].currentValue) {
-      this.patchForm(changes['inputs'].currentValue['passEdit']);
-    } else {
-      this.resetForm();
-    }
-  }
-
-  createForm(): void {
-    this.studentsForm = this.fb.group({
+  constructor(
+    private fb: FormBuilder,
+    private dialogRef: MatDialogRef<StudentFormComponent>,
+    @Inject(MAT_DIALOG_DATA) private editingStudent?: studentModel
+  ) {
+    this.studentForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       birthDate: ['', Validators.required],
@@ -37,8 +25,12 @@ export class StudentFormComponent implements OnChanges {
       email: ['', [Validators.required, Validators.email]],
       country: ['', Validators.required],
       role: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(8), this.passwordValidator()]],
+      password: ['', [Validators.required, Validators.minLength(6), this.passwordValidator()]],
     });
+
+    if (editingStudent) {
+      this.studentForm.patchValue(editingStudent);
+    }
   }
 
   passwordValidator(): ValidatorFn {
@@ -48,48 +40,7 @@ export class StudentFormComponent implements OnChanges {
     };
   }
 
-  resetForm(): void {
-    this.studentsForm.reset();
-  }
-
-  patchForm(data: any): void {
-    this.studentsForm.patchValue(data);
-  }
-
-  onSubmit(): void {
-    if (this.buttonPress) {
-      this.onCancel();
-    } else {
-      if (this.studentsForm.invalid) {
-        this.studentsForm.markAllAsTouched();
-        this.showAlert("Atención", "Por favor complete todos los campos requeridos");
-      } else {
-        this.onAddStudent();
-      }
-    }
-  }
-
-  onCancel(): void {
-    this.cancel.emit(true);
-    this.resetForm();
-    this.showAlert("Atención", "Se canceló la operación");
-  }
-
-  onAddStudent(): void {
-    this.studentSubmitted.emit(this.studentsForm.value);
-    this.resetForm();
-    this.showAlert("Atención", "Se agregó el estudiante");
-  }
-
-  onPressCancel(): void {
-    this.buttonPress = true;
-  }
-
-  showAlert(msg: string, action: string): void {
-    this._snackBar.open(msg, action, {
-      horizontalPosition: "center",
-      verticalPosition: "top",
-      duration: 2000
-    });
+  onSaveStudent(): void {
+    this.dialogRef.close(this.studentForm.value);
   }
 }
