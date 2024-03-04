@@ -8,16 +8,20 @@ export class LoginValidationErrorsPipe implements PipeTransform {
   transform(errors?: ValidationErrors | null, ...args: unknown[]): unknown {
     if (!!errors) {
       let messages = [];
-
       if (errors['required']) messages.push('Este campo es requerido');
-      if (errors['email']) messages.push('No es un email valido');
+      if (errors['email']) messages.push('El email no es válido');
       if (errors['maxlength'])
         messages.push(
-          `No puede tener mas de ${errors['maxlength']?.requiredLength} caracteres`
+          `No puede tener más de ${errors['maxlength']?.requiredLength} caracteres`
+        );
+      if (errors['minlength'])
+        messages.push(
+          `Debe tener más de ${errors['minlength']?.requiredLength} caracteres`
         );
 
       return messages.join('. ') + '.';
     }
+
     return null;
   }
 }
