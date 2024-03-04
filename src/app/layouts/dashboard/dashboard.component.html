@@ -25,6 +25,22 @@
         mat-list-item
         >Cursos</a
       >
+      <a
+        #usersLink="routerLinkActive"
+        routerLinkActive
+        [activated]="usersLink.isActive"
+        routerLink="users"
+        mat-list-item
+        >Usuarios</a
+      >
+      <a
+        #enrollmentsLink="routerLinkActive"
+        routerLinkActive
+        [activated]="enrollmentsLink.isActive"
+        routerLink="enrollments"
+        mat-list-item
+        >Inscripciones</a
+      >
       <a (click)="logout()" mat-list-item>Cerrar sesion</a>
     </mat-nav-list>
   </mat-drawer>
@@ -39,7 +55,10 @@
       >
         <mat-icon>menu</mat-icon>
       </button>
-      <iga-title class="title-m dashboard-toolbar__title" [titleText]="'Institucional'"></iga-title>
+      <iga-title
+        class="title-m dashboard-toolbar__title"
+        [titleText]="'Institucional'"
+      ></iga-title>
     </mat-toolbar>
     <div class="section">
       <router-outlet></router-outlet>

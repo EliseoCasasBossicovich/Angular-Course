@@ -16,7 +16,7 @@ describe('LoginComponent', () => {
       imports: [ReactiveFormsModule, RouterTestingModule],
       providers: [
         FormBuilder,
-        { provide: AuthService, useClass: MockAuthService }
+        { provide: AuthService, useClass: MockAuthService },
       ],
     }).compileComponents();
   });
@@ -49,7 +49,7 @@ describe('LoginComponent', () => {
     it('should call authService.login() with form value if form is valid', () => {
       const mockFormData = {
         email: 'testing@gmail.com',
-        password: '123233'
+        password: '123233',
       };
       component.loginForm.setValue(mockFormData);
       spyOn(authService, 'login');

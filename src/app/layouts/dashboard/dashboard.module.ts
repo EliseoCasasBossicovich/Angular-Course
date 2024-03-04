@@ -27,7 +27,7 @@ import { NotFoundModule } from './pages/not-found/not-found.module';
     HomeModule,
     NotFoundModule,
     IgaTitleModule,
-    DashboardRoutingModule
+    DashboardRoutingModule,
   ],
   exports: [DashboardComponent],
 })
