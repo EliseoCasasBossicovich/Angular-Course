@@ -1,5 +1,45 @@
 {
-  "students": [
+  "users": [
+    {
+      "id": "345",
+      "firstName": "jardia",
+      "lastName": "ance",
+      "email": "ja@mail.com",
+      "cellPhone": "2343465",
+      "password": "12345456",
+      "role": "user",
+      "token": "Nb2vbSDJ"
+    },
+    {"id": "NBDFGc",
+      "firstName": "Eliseo",
+      "lastName": "Casas",
+      "email": "admin@mail.com",
+      "cellPhone": "23546457",
+      "password": "1234567",
+      "role": "admin",
+      "token": "dtYmN9Jz"
+    },
+    {
+      "id": "PI0o",
+      "firstName": "pipon",
+      "lastName": "kolo",
+      "email": "pk@mail.com",
+      "cellPhone": "12355468",
+      "password": "12345",
+      "role": "USER",
+      "token": "f5Y-rFC1"
+    },
+    {
+      "id": "NXG4",
+      "firstName": "paolo",
+      "lastName": "pan",
+      "email": "pp@mail.com",
+      "cellPhone": "348687687",
+      "password": "12345",
+      "role": "USER",
+      "token": "5bd1cUTG"
+    }
+  ],"students": [
     {
       "id": "2222",
       "firstName": "Viecente",
@@ -7,9 +47,7 @@
       "birthDate": "2002-01-10",
       "email": "vt@gmail.com",
       "cellPhone": 3343333234,
-      "country": "Argentina",
-      "role": "ESTUDIANTE",
-      "password": "123233"
+      "country": "Argentina"
     },
     {
       "id": "9534",
@@ -18,9 +56,7 @@
       "birthDate": "1998-12-5",
       "email": "mp@gmail.com",
       "cellPhone": 3343333234,
-      "country": "Uruguay",
-      "role": "ESTUDIANTE",
-      "password": "123233"
+      "country": "Uruguay"
     },
     {
       "id": "4173",
@@ -29,9 +65,7 @@
       "birthDate": "1999-02-5",
       "email": "cp@gmail.com",
       "cellPhone": 3343333234,
-      "country": "Argentina",
-      "role": "ESTUDIANTE",
-      "password": "123233"
+      "country": "Argentina"
     },
     {
       "id": "ebd6",
@@ -40,9 +74,7 @@
       "birthDate": "2000-12-5",
       "email": "ra@gmail.com",
       "cellPhone": 3343333224,
-      "country": "Argentina",
-      "role": "ADMIN",
-      "password": "123233"
+      "country": "Argentina"
     },
     {
       "id": "2fae",
@@ -50,59 +82,44 @@
       "lastName": "Casas",
       "birthDate": "2002-02-02",
       "cellPhone": "344324344",
-      "email": "beliseocasas@gmail.com",
-      "country": "Argentina",
-      "role": "ADMIN",
-      "password": "1234",
-      "token": " v4ChaEV6y4PykSH"
+      "email": "beas@mail.com",
+      "country": "Argentina"
     },
     {
       "id": "b59b",
-      "firstName": "sape",
-      "lastName": "epas",
+      "firstName": "Sape",
+      "lastName": "Epas",
       "birthDate": "1233-12-23",
       "cellPhone": "34234234324",
       "email": "se@gmail.com",
-      "country": "Argentina",
-      "role": "STUDENT",
-      "password": "234234",
-      "token": " hyTei0Lyme2KñÑZ"
+      "country": "Argentina"
     },
     {
       "id": "340b",
-      "firstName": "rer",
-      "lastName": "rar",
+      "firstName": "Rer",
+      "lastName": "Rar",
       "birthDate": "2014-02-20",
       "cellPhone": "342343424",
       "email": "rr@gmail.com",
-      "country": "Uruguay",
-      "role": "STUDENT",
-      "password": "423434",
-      "token": " K3JAGoLwvsiSJVO"
+      "country": "Uruguay"
     },
     {
       "id": "9ce2",
-      "firstName": "fede",
-      "lastName": "castro",
+      "firstName": "Fede",
+      "lastName": "Castro",
       "birthDate": "2002-02-02",
       "cellPhone": "234532466",
       "email": "fc@gmail.com",
-      "country": "Argentina",
-      "role": "STUDENT",
-      "password": "1234",
-      "token": "13883101"
+      "country": "Argentina"
     },
     {
       "id": "fd07",
       "firstName": "Eliseo",
-      "lastName": "bossi",
+      "lastName": "Bossi",
       "birthDate": "2002-02-02",
       "cellPhone": "46433456",
       "email": "as@gmail.co",
-      "country": "Argentina",
-      "role": "STUDENT",
-      "password": "234234",
-      "token": "20803193"
+      "country": "Argentina"
     }
   ],
   "courses": [
@@ -111,40 +128,68 @@
       "courseName": "JavaScript",
       "description": "JavaScript, un lenguaje de programación de alto nivel, es fundamental en el desarrollo web contemporáneo, proporcionando la capacidad de crear sitios interactivos y dinámicos.",
       "shortDescription": "Pilar esencial del desarrollo web interactivo.",
-      "months": 4,
-      "cost": 30
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-01-01T00:00:00.000Z"
     },
     {
       "id": "2",
       "courseName": "Python:",
       "description": "Python, un lenguaje de programación de propósito general, se destaca por su legibilidad y versatilidad, siendo prominente en áreas como el desarrollo web, el análisis de datos y la inteligencia artificial.",
       "shortDescription": "Herramienta versátil y poderosa en el ámbito de la programación.",
-      "months": 3,
-      "cost": 30
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-01-01T00:00:00.000Z"
     },
     {
       "id": "3",
       "courseName": "React.js",
       "description": " React.js, una biblioteca de JavaScript desarrollada por Facebook, se utiliza para la construcción de interfaces de usuario interactivas, siendo especialmente adecuada para aplicaciones web modernas.",
       "shortDescription": "Fundamento esencial para interfaces dinámicas en el desarrollo web.",
-      "months": 3,
-      "cost": 20
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-01-01T00:00:00.000Z"
     },
     {
       "id": "4",
       "courseName": "Angular",
       "description": "Angular, un framework de JavaScript mantenido por Google, permite el desarrollo eficiente de aplicaciones web de una sola página y aplicaciones progresivas.",
       "shortDescription": "Marco de referencia para la creación de aplicaciones web avanzadas.",
-      "months": 4,
-      "cost": 30
+      "startDate": "2024-02-21T05:00:00.000Z",
+      "endDate": "2024-02-17T05:00:00.000Z"
     },
     {
       "id": "5",
       "courseName": "Django",
       "description": "Django, un framework de desarrollo web en Python, se caracteriza por su enfoque en el desarrollo rápido y limpio de aplicaciones, siendo ampliamente utilizado en la comunidad de desarrollo.",
       "shortDescription": "Herramienta eficiente para el desarrollo web ágil.",
-      "months": 3,
-      "cost": 30
+      "startDate": "2024-02-21T05:00:00.000Z",
+      "endDate": "2024-02-17T05:00:00.000Z"
+    }
+    
+  ],
+  "inscriptions": [
+    {
+      "id": "1",
+      "studentId": "fd07",
+      "courseId": "1"
+    },
+    {
+      "id": "2",
+      "studentId": "9ce2",
+      "courseId": "2"
+    },
+    {
+      "id": "3",
+      "studentId": "340b",
+      "courseId": "3"
+    },
+    {
+      "id": "4",
+      "studentId": "4173",
+      "courseId": "4"
+    },
+    {
+      "id": "5",
+      "studentId": "2222",
+      "courseId": "5"
     }
   ]
 }
