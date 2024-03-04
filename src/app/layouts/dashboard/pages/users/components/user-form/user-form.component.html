@@ -1,0 +1,51 @@
+<h1 mat-dialog-title style="margin-bottom: 10px">USUARIOS</h1>
+<div mat-dialog-content>
+  <form [formGroup]="userForm" class="grid formgrid">
+    <div class="col-6" style="margin-top: 10px">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Nombre</mat-label>
+        <input formControlName="firstName" matInput />
+      </mat-form-field>
+    </div>
+    <div class="col-6" style="margin-top: 10px">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Apellido</mat-label>
+        <input formControlName="lastName" matInput />
+      </mat-form-field>
+    </div>
+    <div class="col-6" style="margin-top: 10px">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput />
+      </mat-form-field>
+    </div>
+    <div class="col-6" style="margin-top: 10px">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Celular</mat-label>
+        <input formControlName="cellPhone" matInput />
+      </mat-form-field>
+    </div>
+    <div class="col-6" style="margin-top: 10px">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Contraseña</mat-label>
+        <input formControlName="password" matInput />
+      </mat-form-field>
+    </div>
+    <div class="col-6" style="margin-top: 10px">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Rol</mat-label>
+        <mat-select formControlName="role">
+          <mat-option value="admin">Administrador</mat-option>
+          <mat-option value="user">Usuario</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <pre>{{ userForm.value | json }}</pre>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-dialog-close mat-flat-button color="warn">Cancelar</button>
+  <button (click)="onSaveUser()" mat-flat-button color="primary">
+    Guardar
+  </button>
+</div>
