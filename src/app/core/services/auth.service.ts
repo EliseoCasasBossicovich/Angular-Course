@@ -1,9 +1,11 @@
+import { of, map, catchError } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { studentModel } from '../../shared/models/students.model';
 import { Router } from '@angular/router';
-import { AlertsService } from '../../core/services/alerts.service';
-import { delay, finalize, map, of } from 'rxjs';
-import { LoadingService } from '../../core/services/loading.service';
+import { HttpClient } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { environment } from '../../../enviroments/environment.dev';
+import { userModel } from '../../shared/models/user.model';
 
 interface LoginData {
   email: null | string;
@@ -12,39 +14,39 @@ interface LoginData {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  authUser: studentModel | null = null;
+  authUser: userModel | null = null;
 
   constructor(
     private router: Router,
-    private alertsService: AlertsService,
-    private loadingService: LoadingService
+    private _snackBar: MatSnackBar,
+    private httpClient: HttpClient
   ) {}
 
+  private setAuthUser(user: userModel): void {
+    this.authUser = user;
+    localStorage.setItem(
+      'token',
+      user.token ? user.token : Math.random().toString(8)
+    );
+  }
+
   login(data: LoginData): void {
-    const MOCK_USER = {
-      id: 9999,
-      firstName: 'test',
-      lastName: 'tester',
-      birthDate: '0000-00-00',
-      email: 'testing@gmail.com',
-      cellPhone: 3343333234,
-      country: 'Argentina',
-      role: 'ADMIN',
-      password: '123233',
-    };
-    if (
-      data.email === MOCK_USER.email &&
-      data.password === MOCK_USER.password
-    ) {
-      this.authUser = MOCK_USER;
-      localStorage.setItem(
-        'token',
-        'jfiumba3334432423sarasasarasa2'
-      );
-      this.router.navigate(['dashboard', 'home']);
-    } else {
-      this.alertsService.showError('Email o password invalidos');
-    }
+    this.httpClient
+      .get<userModel[]>(
+        `${environment.apiURL}/users?email=${data.email}&password=${data.password}`
+      )
+      .subscribe({
+        next: (response) => {
+          if (response.length > 0) {
+            this.setAuthUser(response[0]);
+            this.router.navigate(['dashboard', 'home']);
+          } else {
+            this._snackBar.open('Usuario o contraseña incorrectos', 'cerrar', {
+              duration: 2000,
+            });
+          }
+        },
+      });
   }
 
   logout(): void {
@@ -54,11 +56,25 @@ export class AuthService {
   }
 
   verifyToken() {
-    this.loadingService.setIsLoading(true);
-    return of(localStorage.getItem('token')).pipe(
-      delay(1000),
-      map((response) => !!response),
-      finalize(() => this.loadingService.setIsLoading(false))
-    );
+    return this.httpClient
+      .get<userModel[]>(
+        `${environment.apiURL}/users?token=${localStorage.getItem('token')}`
+      )
+      .pipe(
+        map((response) => {
+          if (response.length > 0) {
+            this.setAuthUser(response[0]);
+            return true;
+          } else {
+            this.authUser = null;
+            localStorage.removeItem('token');
+            this._snackBar.open('Usuario sin token', 'cerrar', {
+              duration: 2000,
+            });
+            return false;
+          }
+        }),
+        catchError(() => of(false))
+      );
   }
 }
