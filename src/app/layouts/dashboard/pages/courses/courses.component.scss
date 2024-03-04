@@ -1,0 +1,14 @@
+@import "../../../../shared/styles/operators";
+@import "../../../../shared/styles/variables";
+
+.courses {
+  &__button {
+    @include iga-button-solid(
+      $background: #3498db,
+      $color: #ffffff,
+      $shadow: true,
+      $hover-color: #2980b9,
+      $active-color: #1f618d
+    );
+  }
+}

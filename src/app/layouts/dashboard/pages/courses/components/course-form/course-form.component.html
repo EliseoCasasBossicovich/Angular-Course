@@ -1,0 +1,42 @@
+<iga-title titleText="Añadir/Modificar curso"></iga-title>
+<div mat-dialog-content>
+  <form [formGroup]="courseForm">
+    
+    <mat-form-field>
+      <mat-label>Nombre</mat-label>
+      <input formControlName="courseName" matInput />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Descripción</mat-label>
+      <input formControlName="description" matInput />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Fecha Inicio</mat-label>
+      <input formControlName="startDate" matInput [matDatepicker]="picker" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Fecha Fin</mat-label>
+      <input formControlName="endDate" matInput [matDatepicker]="picker2" />
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-dialog-close mat-flat-button class="courses-form__button-cancel">
+    Cancelar
+  </button>
+  <button
+    class="courses-form__button-save"
+    (click)="onSaveCourse()"
+    mat-flat-button
+  >
+    Guardar
+  </button>
+</div>
