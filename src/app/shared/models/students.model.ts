@@ -4,8 +4,6 @@ export interface studentModel{
     lastName: string;
     birthDate: string;
     email: string;
-    cellPhone: number;
+    cellPhone: string;
     country: string;
-    role: string;
-    password: string;
 }
